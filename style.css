@@ -1,6 +1,29 @@
 
 .pokeBall {
-    width: 10px;
-    height: 10px;
-
+    height: 50px;
+}
+.navBar {
+    background-color: #c90707;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+.searchBar {
+    background: #646464;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 30px;
+    gap: 15px;
+}
+.footer {
+    background-color: #646464;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

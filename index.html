@@ -6,24 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
 
+    <link rel="stylesheet" href="./styles/standard.css">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./templates.js"></script>
+    <script src="./script.js"></script>
 </head>
 
-<body>
-    <nav>
+<body onload="init()">
+    <nav class="navBar">
         <h1>Pokedex</h1>
         <img class="pokeBall" src="./img/pokeball.png" alt="Pokeball">
     </nav>
-    <search>
+    <search  class="searchBar">
         <input type="text" placeholder="Search for a Pokemon...">
-        <button type="submit">Search</button>
+        <button class="btn btn-danger" type="submit">Search</button>
     </search>
-    <main>
+    <main id="mainContent">
         
     </main>
-    <footer>
-
+    <footer class="footer">
+        <p>&copy; 2026 Pokedex. By Leon Weigang.</p>
     </footer>
 
 </body>
