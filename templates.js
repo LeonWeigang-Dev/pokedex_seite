@@ -17,7 +17,10 @@ function getContentTemplate(pokemonData, typeInfos) {
     let iconsHtml = getTypeIconsHtml(typeInfos);
     return `
         <section tabindex="0" role="button" class="smallCard">
-            <div class="cardBg"><span>#${pokemonData.id}</span><span>${name}</span></div>
+            <div class="cardBg">
+            <span>#${pokemonData.id}</span>
+            <span> ${name}</span>
+            </div>
             <div class="imgBg" style="background-color: ${typeInfos[0].color}">
                 <img class="smallCardImg" src="${img}" alt="${name}">
             </div>
