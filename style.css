@@ -27,3 +27,12 @@
     align-items: center;
     justify-content: center;
 }
+
+.cardBg {
+    background-color: #6d6d6d;
+
+}
+
+.typeIcons {
+    height: 50px;
+}
