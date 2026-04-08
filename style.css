@@ -1,7 +1,7 @@
-
 .pokeBall {
     height: 50px;
 }
+
 .navBar {
     background-color: #c90707;
     height: 80px;
@@ -11,6 +11,7 @@
     padding-right: 30px;
     padding-left: 30px;
 }
+
 .searchBar {
     background: #646464;
     height: 60px;
@@ -20,6 +21,44 @@
     padding-right: 30px;
     gap: 15px;
 }
+
+.mainContent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 100vh;
+}
+
+.smallCard {
+    width: 150px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.smallCardImg {
+    height: 150px;
+    width: 150px;
+}
+
+.cardBg {
+    background-color: #6d6d6d;
+    color: black;
+    padding-left: 5px;
+}
+
+.typeIconsContainer {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.typeIcons {
+    height: 50px;
+}
+
 .footer {
     background-color: #646464;
     height: 50px;
@@ -28,11 +67,8 @@
     justify-content: center;
 }
 
-.cardBg {
-    background-color: #6d6d6d;
-
-}
-
-.typeIcons {
-    height: 50px;
+.footerTitle {
+    margin-bottom: 0;
+    display: flex;
+    bottom: 0px;
 }

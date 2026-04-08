@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
 
+    <link rel="icon" href="./img/pokeball.png">
     <link rel="stylesheet" href="./styles/standard.css">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -22,25 +23,28 @@
         <input type="text" placeholder="Search for a Pokemon...">
         <button class="btn btn-danger" type="submit">Search</button>
     </search>
-    <main id="mainContent">
+    <main >
+        <div id="mainContent" class="mainContent">
+            
+        </div>
 
-        <section>
+        <!-- <section tabindex="0"  class="smallCard">
             <div class="cardBg">
                 <span>#1</span>
                 <span>Bulbasaur</span>
             </div>
             <div>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur">
+                <img class="smallCardImg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="Bulbasaur">
             </div>
-            <div class="cardBg">
+            <div class="cardBg typeIconsContainer">
                 <img class="typeIcons" src="./img/Type=Grass.svg" alt="Grass Type">
                 <img class="typeIcons" src="./img/Type=Poison.svg" alt="Poison Type">
             </div>
-        </section>
+        </section> -->
         
     </main>
     <footer class="footer">
-        <p>&copy; 2026 Pokedex. By Leon Weigang.</p>
+        <p class="footerTitle">&copy; 2026 Pokedex. By Leon Weigang.</p>
     </footer>
 
 </body>
