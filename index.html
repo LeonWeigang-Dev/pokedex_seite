@@ -25,20 +25,20 @@
         <img class="pokeBall" src="./img/pokeball.png" alt="Pokeball">
     </nav>
     <search class="searchBar">
-        <input id="searchInput" min="3" max="20" type="text" placeholder="Search for a Pokemon..." required>
+        <input id="searchInput" aria-label="Search Input" min="3" max="20" type="text" placeholder="Search for a Pokemon..." required>
         <button class="btn btn-danger" onclick="searchPokemon()">Search</button>
     </search>
     <main>
         <div id="mainContent" class="mainContent"></div>
     </main>
-    <section class="morePokemonBtn"><button class="btn btn-danger" onclick="loadMore()">Load More...</button></section>
+    <section class="morePokemonBtn"><button class="btn btn-danger" aria-label="Load More Pokemon Button" onclick="loadMore()">Load More...</button></section>
     <footer class="footer">
         <div class="footerContainer">
             <p class="footerTitle">&copy; 2026 Pokedex. By Leon Weigang.</p>
         </div>
 
     </footer>
-    <dialog id="pokemonDialog" class="pokemon-modal" onclick="closeDetails()">
+    <dialog id="pokemonDialog" class="pokemon-modal" aria-label="Pokemon Details" onclick="closeDetails()">
         <div id="dialogContent" class="dialog-card" onclick="event.stopPropagation()">
         </div>
     </dialog>

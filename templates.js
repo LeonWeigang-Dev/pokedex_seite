@@ -16,12 +16,12 @@ function getContentTemplate(pokemonData, typeInfos) {
     let iconsHtml = getTypeIconsHtml(typeInfos);
     let index = allPokemonData.findIndex(p => p.data.id === pokemonData.id);
     return `
-        <section onclick="openDetails(${index})" onkeydown="if(event.key === 'Enter') openDetails(${index})" tabindex="0" class="smallCard">
+        <section onclick="openDetails(${index})" aria-label="View details for ${name}" onkeyup="if(event.key === 'Enter') openDetails(${index})" tabindex="0" class="smallCard">
             <div class="cardBg header-info">
                 <span>#${pokemonData.id}</span>
                 <span>${name}</span>
             </div>
-            <div class="imgBg" style="background-color: ${typeInfos[0].color}">
+            <div class="imgBg" aria-label="Pokemon Image" style="background-color: ${typeInfos[0].color}">
                 <img class="smallCardImg" src="${pokemonData.image}" alt="${name}">
             </div>
             <div class="cardBg typeIconsContainer">${iconsHtml}</div>
@@ -36,7 +36,7 @@ function getDetailTemplate(data, types, index) {
 
     return `
         <div class="detail-header" style="background-color: ${types[0].color}">
-            <button class="close-btn" onclick="closeDetails()" onkeyup="if(event.key === 'Enter') closeDetails()" tabindex="0">X</button>
+            <button class="close-btn" aria-label="Close" onclick="closeDetails()" onkeyup="if(event.key === 'Enter') closeDetails()" tabindex="0">X</button>
             <div class="header-top">
                 <span class="detail-id">#${data.id}</span>
                 <span class="detail-name">${name}</span>
@@ -55,12 +55,12 @@ function getDetailTemplate(data, types, index) {
             <div class="detail-nav">
                 <button class="nav-btn" onclick="changePokemon(${index - 1})" ${isFirst ? 'disabled' : ''}>
                    
-                    <img class="arrowBtn" src="./img/button_left.png" alt="Previous Button">
+                    <img class="arrowBtn" aria-label="Previous Button" src="./img/button_left.png" alt="Previous Button">
                      Previous
                 </button>
                 <button class="nav-btn" onclick="changePokemon(${index + 1})" ${isLast ? 'disabled' : ''}>
                     Next 
-                    <img class="arrowBtn" src="./img/button_right.png" alt="Next Button">
+                    <img class="arrowBtn" aria-label="Next Button" src="./img/button_right.png" alt="Next Button">
                 </button>
             </div>
         </div>`;
@@ -84,7 +84,7 @@ function renderEvoList(evos) {
     for (let i = 0; i < evos.length; i++) {
         let name = formatPokemonName(evos[i].name);
         html += `
-            <div class="evo-item">
+            <div aria-label="Evolution Item" class="evo-item">
                 <img src="${evos[i].image}" alt="${name}">
                 <span>${name}</span>
             </div>
