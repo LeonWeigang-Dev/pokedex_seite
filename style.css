@@ -8,15 +8,20 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999; /* Ganz oben auf der Seite */
+    z-index: 999;
 }
 
 .loadingSpinner img {
-    width: 100px; /* Oder die Größe deines GIFs */
+    width: 500px;
+}
+
+.pokedexTitle:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition-timing-function: ease-in;
 }
 
 .navBar {
@@ -53,9 +58,23 @@
 
 }
 
+.smallCard:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition-timing-function: ease-in;
+}
+
 .smallCardImg {
     height: 150px;
     width: 150px;
+}
+
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px; /* Ein wenig Abstand zum Rand */
+    font-weight: bold;
 }
 
 .cardBg {
@@ -130,4 +149,104 @@
 .footerTitle {
     margin-bottom: 0;
     display: flex;
+}
+
+.no-results {
+    width: 100%;
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2rem;
+    color: #646464;
+    font-weight: bold;
+}
+
+.pokemon-modal {
+    border: none;
+    border-radius: 20px;
+    padding: 0;
+    max-width: 500px;
+    width: 90%;
+    overflow: hidden; /* Damit abgerundete Ecken bei farbigem Header funktionieren */
+}
+
+.pokemon-modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px); /* Macht den Hintergrund leicht unscharf */
+}
+
+.dialog-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    color: white;
+}
+
+.detail-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.detail-nav button {
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.detail-img {
+    width: 200px;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.2));
+}
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.detail-name {
+    margin-top: 10px;
+    font-size: 2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.detail-nav {
+    display: flex;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.detail-nav button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.detail-nav button:hover {
+    background-color: #e0e0e0;
 }

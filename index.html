@@ -19,12 +19,14 @@
         <img src="./img/loadingspinner.gif" alt="Loading...">
     </div>
     <nav class="navBar">
-        <h1>Pokedex</h1>
+        <div>
+            <h1 class="pokedexTitle" onclick="window.location.href='./index.html'">Pokedex</h1>
+        </div>
         <img class="pokeBall" src="./img/pokeball.png" alt="Pokeball">
     </nav>
     <search class="searchBar">
-        <input type="text" placeholder="Search for a Pokemon...">
-        <button class="btn btn-danger" type="submit">Search</button>
+        <input id="searchInput" min="3" max="20" type="text" placeholder="Search for a Pokemon..." required>
+        <button class="btn btn-danger" onclick="searchPokemon()">Search</button>
     </search>
     <main>
         <div id="mainContent" class="mainContent"></div>
@@ -36,7 +38,10 @@
         </div>
 
     </footer>
-
+    <dialog id="pokemonDialog" class="pokemon-modal" onclick="closeDetails()">
+        <div id="dialogContent" class="dialog-card" onclick="event.stopPropagation()">
+        </div>
+    </dialog>
 </body>
 
 </html>

@@ -13,17 +13,37 @@ function getTypeIconsHtml(typeInfos) {
 
 function getContentTemplate(pokemonData, typeInfos) {
     let name = formatPokemonName(pokemonData.name);
-    let img = pokemonData.sprites.other['official-artwork'].front_default;
     let iconsHtml = getTypeIconsHtml(typeInfos);
+    let index = allPokemonData.findIndex(p => p.data.id === pokemonData.id);
     return `
-        <section tabindex="0" role="button" class="smallCard">
-            <div class="cardBg">
-            <span>#${pokemonData.id}</span>
-            <span> ${name}</span>
+        <section onclick="openDetails(${index})" class="smallCard">
+            <div class="cardBg header-info">
+                <span>#${pokemonData.id}</span>
+                <span>${name}</span>
             </div>
             <div class="imgBg" style="background-color: ${typeInfos[0].color}">
-                <img class="smallCardImg" src="${img}" alt="${name}">
+                <img class="smallCardImg" src="${pokemonData.image}" alt="${name}">
             </div>
             <div class="cardBg typeIconsContainer">${iconsHtml}</div>
         </section>`;
+}
+
+function getDetailTemplate(data, types, index) {
+    let name = formatPokemonName(data.name);
+    return `
+        <div class="detail-header" style="background-color: ${types[0].color}">
+            <div class="header-top">
+                <span class="detail-id">#${data.id}</span>
+                <button class="close-btn" onclick="closeDetails()">X</button>
+            </div>
+            <h2 class="detail-name">${name}</h2>
+            <img class="detail-img" src="${data.image}" alt="${name}">
+        </div>
+        <div class="detail-body">
+            <div class="detail-nav">
+                <button onclick="changePokemon(${index - 1})">◀ Previous</button>
+                <button onclick="changePokemon(${index + 1})">Next ▶</button>
+            </div>
+            <div class="type-container">${getTypeIconsHtml(types)}</div>
+        </div>`;
 }
