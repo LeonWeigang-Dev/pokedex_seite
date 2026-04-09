@@ -236,10 +236,9 @@ function openDetails(index) {
     let dialog = document.getElementById("pokemonDialog");
     let content = document.getElementById("dialogContent");
 
-    // Das Template befüllen (wir übergeben den Index für die Navigation)
     content.innerHTML = getDetailTemplate(pokemon.data, pokemon.types, index);
 
-    dialog.showModal(); // Öffnet den Dialog als Modal (Hintergrund gesperrt)
+    dialog.showModal();
 }
 
 function closeDetails() {

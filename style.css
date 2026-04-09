@@ -73,7 +73,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 10px; /* Ein wenig Abstand zum Rand */
+    padding: 5px 10px;
     font-weight: bold;
 }
 
@@ -93,7 +93,6 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    /* Optional: Abrundung damit es schöner aussieht */
     border-radius: 4px;
 }
 
@@ -159,94 +158,155 @@
     color: #646464;
     font-weight: bold;
 }
+/* Modal-Style for the Pokémon-Dialog */
+.pokemon-modal {
+    border: none;
+    border-radius: 20px;
+    padding: 0;
+    max-width: 450px;
+    width: 90%;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0; 
+}
+
+.pokemon-modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
 
 .pokemon-modal {
     border: none;
     border-radius: 20px;
     padding: 0;
-    max-width: 500px;
+    max-width: 450px;
     width: 90%;
-    overflow: hidden; /* Damit abgerundete Ecken bei farbigem Header funktionieren */
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 .pokemon-modal::backdrop {
     background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(3px); /* Macht den Hintergrund leicht unscharf */
+    backdrop-filter: blur(4px);
+    transition: backdrop-filter 0.2s ease;
 }
 
 .dialog-card {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    background-color: white;
 }
 
 .detail-header {
     width: 100%;
+    padding: 20px;
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    color: white;
+    position: relative;
 }
 
-.detail-nav {
+.header-top {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    justify-content: center;
     align-items: center;
-}
-
-.detail-nav button {
-    background: rgba(255, 255, 255, 0.3);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .detail-img {
-    width: 200px;
-    filter: drop-shadow(0 0 10px rgba(0,0,0,0.2));
-}
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-    font-weight: bold;
-    font-size: 1.2rem;
-}
-
-.detail-name {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
     margin-top: 10px;
-    font-size: 2rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
 .close-btn {
-    background: none;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.2);
     border: none;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.detail-body {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 .detail-nav {
     display: flex;
-    gap: 20px;
-    margin: 15px 0;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+    margin-top: -10px;
 }
 
-.detail-nav button {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 5px 15px;
-    border-radius: 20px;
+.nav-btn {
+    flex: 1;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
     cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
-.detail-nav button:hover {
-    background-color: #e0e0e0;
+.nav-btn:hover:not(:disabled) {
+    background-color: #e2e6ea;
+    border-color: #adb5bd;
+    transform: translateY(-1px);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.detail-type-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
 }
