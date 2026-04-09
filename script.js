@@ -102,22 +102,41 @@ function init() {
 
 let currentOffset = 0;
 
+function toggleLoadingScreen(show) {
+    let screen = document.getElementById("loadingScreen");
+    if (show) {
+        screen.classList.remove("d-none");
+    } else {
+        screen.classList.add("d-none");
+    }
+}
+
 async function loadData() {
-    const baseUrl = "https://pokeapi.co/api/v2/pokemon";
-    const url = `${baseUrl}?offset=${currentOffset}&limit=20`;
+    toggleLoadingScreen(true); // Startet das GIF
+    const url = `https://pokeapi.co/api/v2/pokemon?offset=${currentOffset}&limit=20`;
     let response = await fetch(url);
     let json = await response.json();
-    renderContent(json.results);
+    await renderContent(json.results);
+    toggleLoadingScreen(false); // Stoppt das GIF
 }
 
 async function loadMore() {
+    toggleButton(true);
     currentOffset += 20;
     await loadData();
+    toggleButton(false);
+}
+
+function toggleButton(isDisabled) {
+    let btn = document.querySelector(".morePokemonBtn button");
+    if (btn) {
+        btn.disabled = isDisabled;
+        btn.innerText = isDisabled ? "Loading..." : "Load More...";
+    }
 }
 
 async function renderContent(pokemonList) {
     let contentRef = document.getElementById("mainContent");
-    // WICHTIG: Kein contentRef.innerHTML = ""; mehr hier!
     for (let i = 0; i < pokemonList.length; i++) {
         let pokemonData = await fetchPokemonDetails(pokemonList[i].url);
         let typeInfos = getAllTypeInfos(pokemonData);
