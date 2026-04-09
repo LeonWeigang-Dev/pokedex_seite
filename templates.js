@@ -30,20 +30,63 @@ function getContentTemplate(pokemonData, typeInfos) {
 
 function getDetailTemplate(data, types, index) {
     let name = formatPokemonName(data.name);
+    let isFirst = index === 0;
+    let isLast = index === allPokemonData.length - 1;
+    let headerTypesHtml = getTypeIconsHtml(types);
+
     return `
         <div class="detail-header" style="background-color: ${types[0].color}">
+            <button class="close-btn" onclick="closeDetails()">X</button>
             <div class="header-top">
                 <span class="detail-id">#${data.id}</span>
-                <button class="close-btn" onclick="closeDetails()">X</button>
+                <span class="detail-name">${name}</span>
             </div>
-            <h2 class="detail-name">${name}</h2>
+            <div class="header-types">${headerTypesHtml}</div>
             <img class="detail-img" src="${data.image}" alt="${name}">
         </div>
         <div class="detail-body">
-            <div class="detail-nav">
-                <button onclick="changePokemon(${index - 1})">◀ Previous</button>
-                <button onclick="changePokemon(${index + 1})">Next ▶</button>
+            <div class="pokemon-specs">
+                <span><b>Height:</b> ${data.height / 10} m</span>
+                <span><b>Weight:</b> ${data.weight / 10} kg</span>
             </div>
-            <div class="type-container">${getTypeIconsHtml(types)}</div>
+            <div class="stats-container">${renderStats(data.stats)}</div>
+            <div id="evo-section" class="evo-container"></div>
+            
+            <div class="detail-nav">
+                <button class="nav-btn" onclick="changePokemon(${index - 1})" ${isFirst ? 'disabled' : ''}>
+                    ◀ Previous
+                </button>
+                <button class="nav-btn" onclick="changePokemon(${index + 1})" ${isLast ? 'disabled' : ''}>
+                    Next ▶
+                </button>
+            </div>
         </div>`;
+}
+function renderStats(stats) {
+    return stats.map(s => `
+        <div class="stat-row">
+            <span class="stat-name">${s.stat.name.toUpperCase()}</span>
+            <div class="stat-bar-bg">
+                <div class="stat-bar-fill" style="width: ${Math.min(s.base_stat, 100)}%"></div>
+            </div>
+            <span class="stat-value">${s.base_stat}</span>
+        </div>
+    `).join('');
+}
+
+function renderEvoList(evos) {
+    if (evos.length <= 1) return "<p>No further evolutions</p>";
+    
+    let html = "<b>Evolution Chain:</b><div class='evo-row'>";
+    for (let i = 0; i < evos.length; i++) {
+        let name = formatPokemonName(evos[i].name);
+        html += `
+            <div class="evo-item">
+                <img src="${evos[i].image}" alt="${name}">
+                <span>${name}</span>
+            </div>
+            ${i < evos.length - 1 ? '<span class="evo-arrow">➜</span>' : ''}
+        `;
+    }
+    return html + "</div>";
 }

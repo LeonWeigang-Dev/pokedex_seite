@@ -131,7 +131,15 @@ async function renderContent(pokemonList) {
     for (let i = 0; i < pokemonList.length; i++) {
         let pData = await fetchPokemonDetails(pokemonList[i].url);
         let typeInfos = getAllTypeInfos(pData);
-        let simplifiedData = { id: pData.id, name: pData.name, image: pData.sprites.other['official-artwork'].front_default };
+
+        let simplifiedData = {
+            id: pData.id,
+            name: pData.name,
+            image: pData.sprites.other['official-artwork'].front_default,
+            height: pData.height,
+            weight: pData.weight,
+            stats: pData.stats
+        };
         allPokemonData.push({ data: simplifiedData, types: typeInfos });
         contentRef.innerHTML += getContentTemplate(simplifiedData, typeInfos);
     }
@@ -181,7 +189,7 @@ function renderFromCache() {
 async function searchPokemon() {
     let search = document.getElementById('searchInput').value.toLowerCase();
     let loadBtn = document.querySelector(".morePokemonBtn");
-    
+
     if (search.length < 3) {
         renderFromCache(); //
         loadBtn.classList.remove("d-none");
@@ -192,7 +200,7 @@ async function searchPokemon() {
     setTimeout(() => {
         filterAndRender(search); //
         toggleLoadingScreen(false);
-    }, 300); 
+    }, 300);
 }
 
 function filterAndRender(search) {
@@ -231,14 +239,19 @@ function checkIfEmpty(count, contentRef) {
     }
 }
 
-function openDetails(index) {
+async function openDetails(index) {
     let pokemon = allPokemonData[index];
     let dialog = document.getElementById("pokemonDialog");
     let content = document.getElementById("dialogContent");
 
     content.innerHTML = getDetailTemplate(pokemon.data, pokemon.types, index);
-
     dialog.showModal();
+
+    let evos = await getEvolutions(pokemon.data.name);
+    let evoContainer = document.getElementById("evo-section");
+    if (evoContainer) {
+        evoContainer.innerHTML = renderEvoList(evos);
+    }
 }
 
 function closeDetails() {
@@ -261,3 +274,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+async function getEvolutions(pokemonName) {
+    try {
+        let speciesRes = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`);
+        let speciesData = await speciesRes.json();
+        let evoRes = await fetch(speciesData.evolution_chain.url);
+        let evoData = await evoRes.json();
+
+        return await extractEvoData(evoData.chain);
+    } catch (e) { return []; }
+}
+
+async function extractEvoData(chain) {
+    let evoChain = [];
+    let current = chain;
+
+    while (current) {
+        let name = current.species.name;
+        let res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+        let data = await res.json();
+
+        evoChain.push({
+            name: name,
+            image: data.sprites.other['official-artwork'].front_default
+        });
+        current = current.evolves_to[0];
+    }
+    return evoChain;
+}
