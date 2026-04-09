@@ -196,7 +196,7 @@
 
 .header-types .typeIcons {
     height: 40px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .detail-img {
@@ -278,7 +278,10 @@
     font-size: 0.8rem;
 }
 
-.stat-name { width: 80px; font-weight: bold; }
+.stat-name {
+    width: 80px;
+    font-weight: bold;
+}
 
 .stat-bar-bg {
     flex: 1;
@@ -294,9 +297,11 @@
     height: 100%;
 }
 
-.stat-value { width: 30px; text-align: right; }
+.stat-value {
+    width: 30px;
+    text-align: right;
+}
 
-/* Evolution Chain */
 .evo-container {
     background: #f1f1f1;
     border-radius: 15px;
@@ -326,7 +331,7 @@
     background: white;
     border-radius: 50%;
     padding: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .evo-arrow {

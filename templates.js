@@ -76,7 +76,7 @@ function renderStats(stats) {
 
 function renderEvoList(evos) {
     if (evos.length <= 1) return "<p>No further evolutions</p>";
-    
+
     let html = "<b>Evolution Chain:</b><div class='evo-row'>";
     for (let i = 0; i < evos.length; i++) {
         let name = formatPokemonName(evos[i].name);
