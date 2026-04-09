@@ -80,13 +80,13 @@ function renderStats(stats) {
 function renderEvoList(evos) {
     if (evos.length <= 1) return "<p>No further evolutions</p>";
 
-    let html = "<b>Evolution Chain:</b><div class='evo-row'>";
+    let html = "<b class='evoTitle'>Evolution Chain:</b><div class='evo-row'>";
     for (let i = 0; i < evos.length; i++) {
         let name = formatPokemonName(evos[i].name);
         html += `
             <div aria-label="Evolution Item" class="evo-item">
                 <img src="${evos[i].image}" alt="${name}">
-                <span>${name}</span>
+                <span class='evoTitle'>${name}</span>
             </div>
             ${i < evos.length - 1 ? '<span class="evo-arrow">➜</span>' : ''}
         `;
