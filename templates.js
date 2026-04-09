@@ -16,7 +16,7 @@ function getContentTemplate(pokemonData, typeInfos) {
     let iconsHtml = getTypeIconsHtml(typeInfos);
     let index = allPokemonData.findIndex(p => p.data.id === pokemonData.id);
     return `
-        <section onclick="openDetails(${index})" class="smallCard">
+        <section onclick="openDetails(${index})" onkeydown="if(event.key === 'Enter') openDetails(${index})" tabindex="0" class="smallCard">
             <div class="cardBg header-info">
                 <span>#${pokemonData.id}</span>
                 <span>${name}</span>
@@ -36,7 +36,7 @@ function getDetailTemplate(data, types, index) {
 
     return `
         <div class="detail-header" style="background-color: ${types[0].color}">
-            <button class="close-btn" onclick="closeDetails()">X</button>
+            <button class="close-btn" onclick="closeDetails()" onkeyup="if(event.key === 'Enter') closeDetails()" tabindex="0">X</button>
             <div class="header-top">
                 <span class="detail-id">#${data.id}</span>
                 <span class="detail-name">${name}</span>
@@ -54,10 +54,13 @@ function getDetailTemplate(data, types, index) {
             
             <div class="detail-nav">
                 <button class="nav-btn" onclick="changePokemon(${index - 1})" ${isFirst ? 'disabled' : ''}>
-                    ◀ Previous
+                   
+                    <img class="arrowBtn" src="./img/button_left.png" alt="Previous Button">
+                     Previous
                 </button>
                 <button class="nav-btn" onclick="changePokemon(${index + 1})" ${isLast ? 'disabled' : ''}>
-                    Next ▶
+                    Next 
+                    <img class="arrowBtn" src="./img/button_right.png" alt="Next Button">
                 </button>
             </div>
         </div>`;

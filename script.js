@@ -1,4 +1,9 @@
-const pokemonTypes = [{ name: "Normal", value: "normal", color: "#A8A77A", icon: "./img/Type=Normal.svg" },
+const pokemonTypes = [{
+    name: "Normal",
+    value: "normal",
+    color: "#A8A77A",
+    icon: "./img/Type=Normal.svg"
+},
 {
     name: "Fire",
     value: "fire",
@@ -191,14 +196,14 @@ async function searchPokemon() {
     let loadBtn = document.querySelector(".morePokemonBtn");
 
     if (search.length < 3) {
-        renderFromCache(); //
+        renderFromCache();
         loadBtn.classList.remove("d-none");
         return;
     }
     toggleLoadingScreen(true);
     loadBtn.classList.add("d-none");
     setTimeout(() => {
-        filterAndRender(search); //
+        filterAndRender(search);
         toggleLoadingScreen(false);
     }, 300);
 }
