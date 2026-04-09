@@ -100,22 +100,31 @@ function init() {
 }
 
 
+let currentOffset = 0;
+
 async function loadData() {
-    const url = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20";
+    const baseUrl = "https://pokeapi.co/api/v2/pokemon";
+    const url = `${baseUrl}?offset=${currentOffset}&limit=20`;
     let response = await fetch(url);
-    let responsetoJson = await response.json();
-    renderContent(responsetoJson.results);
+    let json = await response.json();
+    renderContent(json.results);
+}
+
+async function loadMore() {
+    currentOffset += 20;
+    await loadData();
 }
 
 async function renderContent(pokemonList) {
     let contentRef = document.getElementById("mainContent");
-    contentRef.innerHTML = "";
+    // WICHTIG: Kein contentRef.innerHTML = ""; mehr hier!
     for (let i = 0; i < pokemonList.length; i++) {
         let pokemonData = await fetchPokemonDetails(pokemonList[i].url);
         let typeInfos = getAllTypeInfos(pokemonData);
         contentRef.innerHTML += getContentTemplate(pokemonData, typeInfos);
     }
 }
+
 async function fetchPokemonDetails(url) {
     let response = await fetch(url);
     return await response.json();
