@@ -36,7 +36,7 @@ function getDetailTemplate(data, types, index) {
 
     return `
         <div class="detail-header" style="background-color: ${types[0].color}">
-            <button class="close-btn" aria-label="Close" onclick="closeDetails()" onkeyup="if(event.key === 'Enter') closeDetails()" tabindex="0">X</button>
+            <button class="close-btn" aria-label="Close" onclick="closeDetails()" tabindex="0">X</button>
             <div class="header-top">
                 <span class="detail-id">#${data.id}</span>
                 <span class="detail-name">${name}</span>
