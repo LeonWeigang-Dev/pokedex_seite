@@ -425,3 +425,10 @@
         width: 300px;
     }
 }
+
+@media (max-width: 415px) {
+    .nav-btn {
+        padding: 5px;
+        font-size: 0.6rem;
+    }
+}
