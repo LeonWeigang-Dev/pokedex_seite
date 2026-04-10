@@ -65,6 +65,7 @@ function getDetailTemplate(data, types, index) {
             </div>
         </div>`;
 }
+
 function renderStats(stats) {
     return stats.map(s => `
         <div class="stat-row">
