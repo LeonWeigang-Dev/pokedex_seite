@@ -200,7 +200,7 @@
     padding: 0;
     max-width: 450px;
     width: 90%;
-    overflow: hidden;
+    overflow: auto;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     position: fixed;
     top: 50%;
