@@ -18,17 +18,19 @@
     <div id="loadingScreen" class="loadingSpinner d-none">
         <img src="./img/loadingspinner.gif" alt="Loading...">
     </div>
-    <nav class="navBar">
-        <div>
-            <h1 class="pokedexTitle" onclick="window.location.href='./index.html'">Pokédex</h1>
-        </div>
-        <img class="pokeBall" src="./img/pokeball.png" alt="Pokeball">
-    </nav>
-    <search class="searchBar">
-        <input id="searchInput" class="inputField" aria-label="Search Input" min="3" max="20" type="text"
-            placeholder="Search for a Pokémon..." required>
-        <button class="btn btn-danger searchBtn" onclick="searchPokemon()">Search</button>
-    </search>
+    <header>
+        <nav class="navBar">
+            <div>
+                <h1 class="pokedexTitle" onclick="window.location.href='./index.html'">Pokédex</h1>
+            </div>
+            <img class="pokeBall" src="./img/pokeball.png" alt="Pokeball">
+        </nav>
+        <search class="searchBar">
+            <input id="searchInput" class="inputField" aria-label="Search Input" min="3" max="20" type="text"
+                placeholder="Search for a Pokémon..." required>
+            <button class="btn btn-danger searchBtn" onclick="searchPokemon()">Search</button>
+        </search>
+    </header>
     <main>
         <div id="mainContent" class="mainContent"></div>
     </main>
