@@ -1,16 +1,4 @@
 
-function formatPokemonName(name) {
-    return name.charAt(0).toUpperCase() + name.slice(1);
-}
-
-function getTypeIconsHtml(typeInfos) {
-    let html = "";
-    for (let i = 0; i < typeInfos.length; i++) {
-        html += `<img class="typeIcons" src="${typeInfos[i].icon}" alt="Type">`;
-    }
-    return html;
-}
-
 function getContentTemplate(pokemonData, typeInfos) {
     let name = formatPokemonName(pokemonData.name);
     let iconsHtml = getTypeIconsHtml(typeInfos);
@@ -76,21 +64,4 @@ function renderStats(stats) {
             <span class="stat-value">${s.base_stat}</span>
         </div>
     `).join('');
-}
-
-function renderEvoList(evos) {
-    if (evos.length <= 1) return "<p>No further evolutions</p>";
-
-    let html = "<b class='evoTitle'>Evolution Chain:</b><div class='evo-row'>";
-    for (let i = 0; i < evos.length; i++) {
-        let name = formatPokemonName(evos[i].name);
-        html += `
-            <div aria-label="Evolution Item" class="evo-item">
-                <img src="${evos[i].image}" alt="${name}">
-                <span class='evoTitle'>${name}</span>
-            </div>
-            ${i < evos.length - 1 ? '<span class="evo-arrow">➜</span>' : ''}
-        `;
-    }
-    return html + "</div>";
 }

@@ -179,7 +179,8 @@ async function getEvolutions(pokemonName) {
         const evoRes = await fetch(specData.evolution_chain.url);
         const evoData = await evoRes.json();
         return await extractEvoData(evoData.chain);
-    } catch (e) { return []; }
+    } catch (e) { return [console.log("Error fetching evolutions:", e)
+    ]; }
 }
 
 async function extractEvoData(chain) {
@@ -202,3 +203,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('searchInput');
     input?.addEventListener('keypress', (e) => e.key === 'Enter' && searchPokemon());
 });
+
+function formatPokemonName(name) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+function getTypeIconsHtml(typeInfos) {
+    let html = "";
+    for (let i = 0; i < typeInfos.length; i++) {
+        html += `<img class="typeIcons" src="${typeInfos[i].icon}" alt="Type">`;
+    }
+    return html;
+}
+
+function renderEvoList(evos) {
+    if (evos.length <= 1) return "<p>No further evolutions</p>";
+
+    let html = "<b class='evoTitle'>Evolution Chain:</b><div class='evo-row'>";
+    for (let i = 0; i < evos.length; i++) {
+        let name = formatPokemonName(evos[i].name);
+        html += `
+            <div aria-label="Evolution Item" class="evo-item">
+                <img src="${evos[i].image}" alt="${name}">
+                <span class='evoTitle'>${name}</span>
+            </div>
+            ${i < evos.length - 1 ? '<span class="evo-arrow">➜</span>' : ''}
+        `;
+    }
+    return html + "</div>";
+}

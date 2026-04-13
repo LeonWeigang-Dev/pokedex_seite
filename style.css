@@ -387,9 +387,15 @@
 
 .evo-container {
     background: #09212A;
+    color: #ffffff;
     border-radius: 15px;
     padding: 15px;
     width: 100%;
+    text-align: center;
+}
+
+p  {
+    margin-bottom: 0!important;
     text-align: center;
 }
 
