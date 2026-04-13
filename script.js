@@ -48,20 +48,32 @@ function renderEvoList(evos) {
 
 async function init() {
     toggleLoadingScreen(true);
-    await loadSearchList();
-    if (!loadFromLocalStorage()) {
-        await loadData();
+    try {
+        await loadSearchList();
+        if (!loadFromLocalStorage()) {
+            await loadData();
+        }
+    } catch (error) {
+        console.error("Initialization failed:", error);
+    } finally {
+        setTimeout(() => toggleLoadingScreen(false), 500);
     }
-    setTimeout(() => toggleLoadingScreen(false), 500);
 }
 
 async function loadData() {
     toggleLoadingScreen(true);
-    const url = `https://pokeapi.co/api/v2/pokemon?offset=${currentOffset}&limit=20`;
-    const response = await fetch(url);
-    const json = await response.json();
-    await renderContent(json.results);
-    toggleLoadingScreen(false);
+    try {
+        const url = `https://pokeapi.co/api/v2/pokemon?offset=${currentOffset}&limit=20`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Error loading base data");
+        const json = await response.json();
+        await renderContent(json.results);
+    } catch (error) {
+        console.error("Error reloading data:", error);
+        document.getElementById("mainContent").innerHTML += `<p class="error">Error loading Pokémon.</p>`;
+    } finally {
+        toggleLoadingScreen(false);
+    }
 }
 
 async function loadSearchList() {
@@ -98,8 +110,16 @@ function createSimplifiedData(pData) {
 async function loadMore() {
     if (isDataLoading) return;
     isDataLoading = true;
-    await loadNextBatch();
-    isDataLoading = false;
+    toggleButton(true);
+    try {
+        currentOffset = allPokemonData.length;
+        await loadData();
+    } catch (error) {
+        console.error("Error reloading data:", error);
+    } finally {
+        isDataLoading = false;
+        toggleButton(false);
+    }
 }
 
 async function loadNextBatch() {
