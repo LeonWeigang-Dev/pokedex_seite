@@ -1,35 +1,26 @@
-
-function getContentTemplate(pokemonData, typeInfos) {
-    let name = formatPokemonName(pokemonData.name);
-    let iconsHtml = getTypeIconsHtml(typeInfos);
-    let index = allPokemonData.findIndex(p => p.data.id === pokemonData.id);
+function getContentTemplate(id, name, image, bgColor, iconsHtml, index) {
     return `
         <section onclick="openDetails(${index})" aria-label="View details for ${name}" onkeyup="if(event.key === 'Enter') openDetails(${index})" tabindex="0" class="smallCard">
             <div class="cardBg header-info">
-                <span>#${pokemonData.id}</span>
+                <span>#${id}</span>
                 <span>${name}</span>
             </div>
-            <div class="imgBg" aria-label="Pokemon Image" style="background-color: ${typeInfos[0].color}">
-                <img class="smallCardImg" src="${pokemonData.image}" alt="${name}">
+            <div class="imgBg" aria-label="Pokemon Image" style="background-color: ${bgColor}">
+                <img class="smallCardImg" src="${image}" alt="${name}">
             </div>
             <div class="cardBg typeIconsContainer">${iconsHtml}</div>
         </section>`;
 }
 
-function getDetailTemplate(data, types, index) {
-    let name = formatPokemonName(data.name);
-    let isFirst = index === 0;
-    let isLast = index === allPokemonData.length - 1;
-    let headerTypesHtml = getTypeIconsHtml(types);
-
+function getDetailTemplate(data, name, bgColor, iconsHtml, index, statsHtml, isFirst, isLast) {
     return `
-        <div class="detail-header" style="background-color: ${types[0].color}">
+        <div class="detail-header" style="background-color: ${bgColor}">
             <button class="close-btn" aria-label="Close" onclick="closeDetails()" tabindex="0">X</button>
             <div class="header-top">
                 <span class="detail-id">#${data.id}</span>
                 <span class="detail-name">${name}</span>
             </div>
-            <div class="header-types">${headerTypesHtml}</div>
+            <div class="header-types">${iconsHtml}</div>
             <img class="detail-img" src="${data.image}" alt="${name}">
         </div>
         <div class="detail-body">
@@ -37,12 +28,11 @@ function getDetailTemplate(data, types, index) {
                 <span><b>Height:</b> ${data.height / 10} m</span>
                 <span><b>Weight:</b> ${data.weight / 10} kg</span>
             </div>
-            <div class="stats-container">${renderStats(data.stats)}</div>
+            <div class="stats-container">${statsHtml}</div>
             <div id="evo-section" class="evo-container"></div>
             
             <div class="detail-nav">
                 <button class="nav-btn" onclick="changePokemon(${index - 1})" ${isFirst ? 'disabled' : ''}>
-                   
                     <img class="arrowBtn" aria-label="Previous Button" src="./img/button_left.png" alt="Previous Button">
                      Previous
                 </button>
@@ -54,14 +44,27 @@ function getDetailTemplate(data, types, index) {
         </div>`;
 }
 
-function renderStats(stats) {
-    return stats.map(s => `
+function getStatRowTemplate(label, value, width) {
+    return `
         <div class="stat-row">
-            <span class="stat-name">${s.stat.name.toUpperCase()}</span>
+            <span class="stat-name">${label}</span>
             <div class="stat-bar-bg">
-                <div class="stat-bar-fill" style="width: ${Math.min(s.base_stat, 100)}%"></div>
+                <div class="stat-bar-fill" style="width: ${width}%"></div>
             </div>
-            <span class="stat-value">${s.base_stat}</span>
+            <span class="stat-value">${value}</span>
+        </div>`;
+}
+
+function getEvoItemTemplate(image, name, showArrow) {
+    return `
+        <div aria-label="Evolution Item" class="evo-item">
+            <img src="${image}" alt="${name}">
+            <span class='evoTitle'>${name}</span>
         </div>
-    `).join('');
+        ${showArrow ? '<span class="evo-arrow">➜</span>' : ''}
+    `;
+}
+
+function getEvoListTemplate(itemsHtml) {
+    return `<b class='evoTitle'>Evolution Chain:</b><div class='evo-row'>${itemsHtml}</div>`;
 }

@@ -5,6 +5,47 @@ let allPokemonData = [];
 let pokemonSearchList = [];
 let isDataLoading = false;
 
+function prepareAndGetContentHtml(pokemon) {
+    const name = formatPokemonName(pokemon.data.name);
+    const iconsHtml = getTypeIconsHtml(pokemon.types);
+    const index = allPokemonData.findIndex(p => p.data.id === pokemon.data.id);
+    const bgColor = pokemon.types[0].color;
+
+    return getContentTemplate(pokemon.data.id, name, pokemon.data.image, bgColor, iconsHtml, index);
+}
+
+function prepareAndGetDetailHtml(pokemon, index) {
+    const name = formatPokemonName(pokemon.data.name);
+    const iconsHtml = getTypeIconsHtml(pokemon.types);
+    const statsHtml = prepareStatsHtml(pokemon.data.stats);
+    const isFirst = index === 0;
+    const isLast = index === allPokemonData.length - 1;
+    const bgColor = pokemon.types[0].color;
+
+    return getDetailTemplate(pokemon.data, name, bgColor, iconsHtml, index, statsHtml, isFirst, isLast);
+}
+
+function prepareStatsHtml(stats) {
+    return stats.map(s => {
+        const statName = s.stat.name.toUpperCase();
+        const value = s.base_stat;
+        const width = Math.min(value, 100);
+        return getStatRowTemplate(statName, value, width);
+    }).join('');
+}
+
+function renderEvoList(evos) {
+    if (evos.length <= 1) return "<p>No further evolutions</p>";
+
+    let itemsHtml = "";
+    for (let i = 0; i < evos.length; i++) {
+        const name = formatPokemonName(evos[i].name);
+        const showArrow = i < evos.length - 1;
+        itemsHtml += getEvoItemTemplate(evos[i].image, name, showArrow);
+    }
+    return getEvoListTemplate(itemsHtml);
+}
+
 async function init() {
     toggleLoadingScreen(true);
     await loadSearchList();
@@ -35,8 +76,10 @@ async function renderContent(pokemonList) {
         const pData = await fetchPokemonDetails(pokemonList[i].url);
         const typeInfos = getAllTypeInfos(pData);
         const simplifiedData = createSimplifiedData(pData);
-        allPokemonData.push({ data: simplifiedData, types: typeInfos });
-        contentRef.innerHTML += getContentTemplate(simplifiedData, typeInfos);
+        const newPokemon = { data: simplifiedData, types: typeInfos };
+        allPokemonData.push(newPokemon);
+
+        contentRef.innerHTML += prepareAndGetContentHtml(newPokemon);
     }
     saveToLocalStorage();
 }
@@ -87,7 +130,7 @@ function renderFromCache() {
     const contentRef = document.getElementById("mainContent");
     contentRef.innerHTML = "";
     allPokemonData.forEach(p => {
-        contentRef.innerHTML += getContentTemplate(p.data, p.types);
+        contentRef.innerHTML += prepareAndGetContentHtml(p);
     });
     currentOffset = allPokemonData.length;
 }
@@ -125,8 +168,9 @@ async function renderSingleSearchResult(url) {
 
 function updateCacheAndRender(data, types) {
     const existing = allPokemonData.findIndex(p => p.data.id === data.id);
-    if (existing === -1) allPokemonData.push({ data, types });
-    document.getElementById("mainContent").innerHTML += getContentTemplate(data, types);
+    const pokemonObj = { data, types };
+    if (existing === -1) allPokemonData.push(pokemonObj);
+    document.getElementById("mainContent").innerHTML += prepareAndGetContentHtml(pokemonObj);
 }
 
 async function fetchPokemonDetails(url) {
@@ -153,10 +197,10 @@ function checkIfEmpty(count, contentRef) {
 
 async function openDetails(index) {
     const pokemon = allPokemonData[index];
-    const dialog = document.getElementById("pokemonDialog");
     const content = document.getElementById("dialogContent");
-    content.innerHTML = getDetailTemplate(pokemon.data, pokemon.types, index);
-    dialog.showModal();
+    content.innerHTML = prepareAndGetDetailHtml(pokemon, index);
+    document.getElementById("pokemonDialog").showModal();
+
     const evos = await getEvolutions(pokemon.data.name);
     const evoContainer = document.getElementById("evo-section");
     if (evoContainer) evoContainer.innerHTML = renderEvoList(evos);
@@ -179,8 +223,10 @@ async function getEvolutions(pokemonName) {
         const evoRes = await fetch(specData.evolution_chain.url);
         const evoData = await evoRes.json();
         return await extractEvoData(evoData.chain);
-    } catch (e) { return [console.log("Error fetching evolutions:", e)
-    ]; }
+    } catch (e) {
+        return [console.log("Error fetching evolutions:", e)
+        ];
+    }
 }
 
 async function extractEvoData(chain) {
