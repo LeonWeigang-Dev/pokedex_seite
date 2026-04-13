@@ -3,6 +3,7 @@ const pokemonTypes = [{ name: "Normal", value: "normal", color: "#A8A77A", icon:
 let currentOffset = 0;
 let allPokemonData = [];
 let pokemonSearchList = [];
+let isDataLoading = false;
 
 async function init() {
     toggleLoadingScreen(true);
@@ -52,10 +53,15 @@ function createSimplifiedData(pData) {
 }
 
 async function loadMore() {
-    toggleButton(true);
-    currentOffset += 20;
+    if (isDataLoading) return;
+    isDataLoading = true;
+    await loadNextBatch();
+    isDataLoading = false;
+}
+
+async function loadNextBatch() {
+    currentOffset = allPokemonData.length;
     await loadData();
-    toggleButton(false);
 }
 
 function getAllTypeInfos(pokemonData) {

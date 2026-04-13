@@ -443,6 +443,15 @@
 }
 
 @media (max-width: 415px) {
+    .navBar {
+        padding-left: 15px;
+        padding-right: 0px;
+    }
+
+    .pokedexTitle {
+        font-size: 2.5rem;
+    }
+
     .nav-btn {
         padding: 5px;
         font-size: 0.6rem;
