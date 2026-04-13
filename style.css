@@ -172,12 +172,25 @@
 
 .footer {
     background-color: rgb(6, 23, 30);
-    height: 50px;
+    height: 120px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    flex-direction: column;
+
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+}
+
+.footerContainer {
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .footerTitle {
@@ -403,7 +416,8 @@
 .evo-item img {
     width: 60px;
     height: 60px;
-    background: #09212A;;
+    background: #09212A;
+    ;
     border-radius: 50%;
     padding: 5px;
 }
@@ -417,10 +431,12 @@
     .smallCard {
         width: 250px;
     }
+
     .smallCardImg {
         width: 150px;
         height: 150px;
     }
+
     .loadingSpinner img {
         width: 300px;
     }
@@ -431,6 +447,7 @@
         padding: 5px;
         font-size: 0.6rem;
     }
+
     .evo-row {
         gap: 5px;
     }
