@@ -20,18 +20,20 @@
     </div>
     <header>
         <nav class="navBar">
-            <div>
-                <h1 class="pokedexTitle" onclick="window.location.href='./index.html'">Pokédex</h1>
-            </div>
-            <img class="pokeBall" src="./img/pokeball.png" alt="Pokeball">
+            <section class="navBarContainer">
+                <div>
+                    <h1 class="pokedexTitle" onclick="window.location.href='./index.html'">Pokédex</h1>
+                </div>
+                <img class="pokeBall" src="./img/pokeball.png" alt="Pokeball">
+            </section>
         </nav>
         <search class="searchBar">
-            <div class="searchContainer">
+            <section class="searchContainer">
                 <input id="searchInput" class="inputField" aria-label="Search Input" min="3" max="20" type="text"
                     placeholder="Search for a Pokémon..." required>
                 <button class="resetBtn" onclick="window.location.href='./index.html'">×</button>
                 <button class="btn btn-danger searchBtn" onclick="searchPokemon()">Search</button>
-            </div>
+            </section>
         </search>
     </header>
     <main>
