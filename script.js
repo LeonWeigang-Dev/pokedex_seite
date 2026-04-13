@@ -136,12 +136,20 @@ function renderFromCache() {
 }
 
 async function searchPokemon() {
-    const search = document.getElementById('searchInput').value.toLowerCase();
+    const input = document.getElementById('searchInput');
+    const search = input.value.toLowerCase().trim();
     const contentRef = document.getElementById("mainContent");
-    if (search.length < 3) return resetSearch();
+    if (search.length === 0) {
+        window.location.reload();
+        return;
+    }
+
+    if (search.length < 3) return;
+
     toggleLoadingScreen(true);
     document.querySelector(".morePokemonBtn").classList.add("d-none");
     contentRef.innerHTML = "";
+
     const filtered = pokemonSearchList.filter(p => p.name.includes(search));
     await handleSearchResults(filtered, contentRef);
     toggleLoadingScreen(false);
