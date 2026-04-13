@@ -1,0 +1,6 @@
+# ignoriere node_modules Ordner
+node_modules/
+# ignoriere package-lock.json Datei
+package-lock.json
+# ignoriere package.json Datei
+package.json

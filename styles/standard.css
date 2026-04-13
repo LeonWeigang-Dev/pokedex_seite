@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    scroll-behavior: smooth;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+:root {
+    --bs-body-bg: rgb(6, 23, 30) !important;
+}
+
+main {
+    max-width: 1920px;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-height: 100%;
+    background-color: rgb(6, 23, 30);
+    margin: auto;
+}
+
+body:has(dialog[open]) {
+    overflow: hidden;
+}

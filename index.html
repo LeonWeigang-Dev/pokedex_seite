@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+
+    <link rel="icon" href="./img/pokeball.png">
+    <link rel="stylesheet" href="./styles/standard.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./script.js"></script>
+    <script src="./templates.js"></script>
+</head>
+
+<body class="body" onload="init()">
+    <div id="loadingScreen" class="loadingSpinner d-none">
+        <img src="./img/loadingspinner.gif" alt="Loading...">
+    </div>
+    <header>
+        <nav class="navBar">
+            <div>
+                <h1 class="pokedexTitle" onclick="window.location.href='./index.html'">Pokédex</h1>
+            </div>
+            <img class="pokeBall" src="./img/pokeball.png" alt="Pokeball">
+        </nav>
+        <search class="searchBar">
+            <input id="searchInput" class="inputField" aria-label="Search Input" min="3" max="20" type="text"
+                placeholder="Search for a Pokémon..." required>
+            <button class="btn btn-danger searchBtn" onclick="searchPokemon()">Search</button>
+        </search>
+    </header>
+    <main>
+        <div id="mainContent" class="mainContent"></div>
+    </main>
+    <section class="morePokemonBtn"><button class="btn btn-danger loadBtn" aria-label="Load More Pokémon Button"
+            onclick="loadMore()">Load More...</button></section>
+    <footer class="footer">
+        <div class="footerContainer">
+            <p class="footerTitle">&copy; 2026 Pokedex. By Leon Weigang.</p>
+        </div>
+
+    </footer>
+    <dialog id="pokemonDialog" class="pokemon-modal" aria-label="Pokemon Details" onclick="closeDetails()">
+        <div id="dialogContent" class="dialog-card" onclick="event.stopPropagation()">
+        </div>
+    </dialog>
+</body>
+
+</html>
