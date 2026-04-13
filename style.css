@@ -68,6 +68,24 @@
     font-size: 15px;
 }
 
+.resetBtn {
+    grid-area: 1 / 1;
+    width: 24px;
+    height: 24px;
+    z-index: 2;
+    background-image: url(./img/reset_icon.png);
+    background-color: transparent;
+    background-size: cover;
+    border: none;
+    transition: transform 0.2s ease;
+    appearance: auto;
+    color: transparent;
+}
+
+.resetBtn:hover {
+    transform: scale(1.2);
+}
+
 .searchBtn {
     width: 90px;
     color: #ffffff !important;
@@ -465,5 +483,33 @@ p {
 
     .evo-row {
         gap: 5px;
+    }
+}
+
+@media (max-width: 360px) {
+    .searchContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+    }
+
+    .resetBtn {
+        width: 20px;
+        height: 20px;
+    }
+
+    .inputField {
+        width: 140px;
+        height: 30px;
+        padding: 5px;
+        font-size: 0.6rem !important;
+    }
+
+    .searchBtn {
+        width: 80px;
+        padding: 8px;
+        font-size: 0.6rem !important;
     }
 }

@@ -26,9 +26,12 @@
             <img class="pokeBall" src="./img/pokeball.png" alt="Pokeball">
         </nav>
         <search class="searchBar">
-            <input id="searchInput" class="inputField" aria-label="Search Input" min="3" max="20" type="text"
-                placeholder="Search for a Pokémon..." required>
-            <button class="btn btn-danger searchBtn" onclick="searchPokemon()">Search</button>
+            <div class="searchContainer">
+                <input id="searchInput" class="inputField" aria-label="Search Input" min="3" max="20" type="text"
+                    placeholder="Search for a Pokémon..." required>
+                <button class="resetBtn" onclick="window.location.href='./index.html'">×</button>
+                <button class="btn btn-danger searchBtn" onclick="searchPokemon()">Search</button>
+            </div>
         </search>
     </header>
     <main>
