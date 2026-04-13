@@ -57,11 +57,23 @@ async function init() {
 
 async function loadData() {
     toggleLoadingScreen(true);
-    const url = `https://pokeapi.co/api/v2/pokemon?offset=${currentOffset}&limit=20`;
-    const response = await fetch(url);
-    const json = await response.json();
-    await renderContent(json.results);
-    toggleLoadingScreen(false);
+    try {
+        const url = `https://pokeapi.co/api/v2/pokemon?offset=${currentOffset}&limit=20`;
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const json = await response.json();
+        await renderContent(json.results);
+    } catch (error) {
+        console.error("Error loading Pokémon data:", error);
+        document.getElementById("mainContent").innerHTML += `
+            <div class="no-results"><p>Data could not be loaded. Please try again later..</p></div>`;
+    } finally {
+        toggleLoadingScreen(false);
+    }
 }
 
 async function loadSearchList() {
@@ -98,8 +110,16 @@ function createSimplifiedData(pData) {
 async function loadMore() {
     if (isDataLoading) return;
     isDataLoading = true;
-    await loadNextBatch();
-    isDataLoading = false;
+    toggleButton(true);
+
+    try {
+        await loadNextBatch();
+    } catch (error) {
+        console.error("Error in loadMore:", error);
+    } finally {
+        isDataLoading = false;
+        toggleButton(false);
+    }
 }
 
 async function loadNextBatch() {
